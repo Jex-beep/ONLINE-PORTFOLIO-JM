@@ -24,18 +24,20 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
         aria-label={`${project.name} — view case study`}
       >
         <div className="relative overflow-hidden">
-          <div className="aspect-[16/10] w-full">
+          <div className="flex aspect-[16/10] w-full items-center justify-center bg-gradient-to-b from-ink-3 to-ink-2">
+            <div
+              aria-hidden="true"
+              className="absolute h-2/3 w-2/3 rounded-full bg-gold/[0.06] blur-2xl"
+            />
             <img
-              src={project.images[0]}
-              alt={`${project.name} interface screenshot`}
+              src={project.logo}
+              alt=""
               loading="lazy"
-              className="h-full w-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+              width={2000}
+              height={2000}
+              className="relative h-1/2 w-auto object-contain transition-transform duration-700 ease-out group-hover:scale-105"
             />
           </div>
-          <div
-            aria-hidden="true"
-            className="absolute inset-0 bg-gradient-to-t from-ink-2/70 to-transparent"
-          />
           <span
             className={`absolute top-4 left-4 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.2em] ${
               isClientWork
