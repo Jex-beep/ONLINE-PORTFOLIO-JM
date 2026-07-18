@@ -7,6 +7,7 @@ import { AboutPage } from './pages/AboutPage'
 import { ProjectsPage } from './pages/ProjectsPage'
 import { ProjectDetailPage } from './pages/ProjectDetailPage'
 import { ResumePage } from './pages/ResumePage'
+import { ContactPage } from './pages/ContactPage'
 import { PlaceholderPage } from './pages/PlaceholderPage'
 
 function App() {
@@ -24,16 +25,7 @@ function App() {
           <Route path="/projects" element={<ProjectsPage />} />
           <Route path="/projects/:slug" element={<ProjectDetailPage />} />
           <Route path="/resume" element={<ResumePage />} />
-          <Route
-            path="/contact"
-            element={
-              <PlaceholderPage
-                index="05"
-                title="Contact"
-                description="A proper contact form is coming. Until then, the footer links work great."
-              />
-            }
-          />
+          <Route path="/contact" element={<ContactPage />} />
           <Route
             path="*"
             element={
