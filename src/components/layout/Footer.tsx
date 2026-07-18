@@ -39,7 +39,7 @@ export function Footer() {
             <span className="font-mono text-xs tracking-[0.2em] text-fog uppercase">
               © 2026 Julien Michael Punsalan
             </span>
-            <span className="font-mono text-xs text-fog/70">{LOCATION}</span>
+            <span className="font-mono text-xs text-fog">{LOCATION}</span>
           </div>
 
           <nav aria-label="Footer navigation" className="flex flex-wrap gap-6">
@@ -57,6 +57,7 @@ export function Footer() {
           <div className="flex items-center gap-5">
             {socials.map(social => {
               const Icon = SOCIAL_ICONS[social.label]
+              if (!Icon) return null
               return (
                 <a
                   key={social.label}

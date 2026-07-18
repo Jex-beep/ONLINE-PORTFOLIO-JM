@@ -136,7 +136,7 @@ export function Hero() {
               />
             </div>
           </div>
-          <p className="mt-5 text-center font-mono text-[10px] uppercase tracking-[0.3em] text-fog/70">
+          <p className="mt-5 text-center font-mono text-[10px] uppercase tracking-[0.3em] text-fog">
             Fig. 01 — The Developer
           </p>
         </Reveal>

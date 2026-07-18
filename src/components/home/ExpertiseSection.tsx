@@ -94,7 +94,7 @@ export function ExpertiseSection() {
           <LogoLoop
             logos={TECH_MARQUEE.map(tech => ({
               node: (
-                <span className="flex items-center gap-10 font-mono text-xs uppercase tracking-[0.3em] text-fog/70">
+                <span className="flex items-center gap-10 font-mono text-xs uppercase tracking-[0.3em] text-fog">
                   {tech}
                   <span className="text-gold/50" aria-hidden="true">
                     ◆

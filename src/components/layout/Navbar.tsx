@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link, NavLink } from 'react-router'
 import { Menu, X } from 'lucide-react'
 
@@ -13,16 +13,36 @@ const NAV_LINKS = [
 function navLinkClass({ isActive }: { isActive: boolean }): string {
   const base =
     'font-mono text-[11px] uppercase tracking-[0.2em] transition-colors duration-300 cursor-pointer'
-  return isActive ? `${base} text-gold` : `${base} text-fog hover:text-ivory`
+  return isActive
+    ? `${base} text-gold underline decoration-gold/60 underline-offset-8`
+    : `${base} text-fog hover:text-ivory`
 }
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
+  const toggleRef = useRef<HTMLButtonElement>(null)
+  const mobileNavRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
-    document.body.style.overflow = isOpen ? 'hidden' : ''
+    if (!isOpen) return
+
+    const toggleButton = toggleRef.current
+    document.body.style.overflow = 'hidden'
+    // Content behind the overlay must be unreachable for keyboard/SR users
+    const background = document.querySelectorAll('main, footer')
+    background.forEach(el => el.setAttribute('inert', ''))
+    mobileNavRef.current?.querySelector('a')?.focus()
+
+    const handleKeydown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setIsOpen(false)
+    }
+    document.addEventListener('keydown', handleKeydown)
+
     return () => {
       document.body.style.overflow = ''
+      background.forEach(el => el.removeAttribute('inert'))
+      document.removeEventListener('keydown', handleKeydown)
+      toggleButton?.focus()
     }
   }, [isOpen])
 
@@ -63,9 +83,11 @@ export function Navbar() {
         </Link>
 
         <button
+          ref={toggleRef}
           type="button"
           className="cursor-pointer p-2 text-ivory md:hidden"
           aria-expanded={isOpen}
+          aria-controls="mobile-nav"
           aria-label={isOpen ? 'Close menu' : 'Open menu'}
           onClick={() => setIsOpen(open => !open)}
         >
@@ -75,6 +97,8 @@ export function Navbar() {
 
       {isOpen && (
         <nav
+          ref={mobileNavRef}
+          id="mobile-nav"
           aria-label="Mobile navigation"
           className="fixed inset-x-0 top-16 bottom-0 z-40 flex flex-col items-center justify-center gap-8 bg-ink/95 backdrop-blur-lg md:hidden"
         >
