@@ -47,7 +47,7 @@ export function Navbar() {
   }, [isOpen])
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-line bg-ink/75 backdrop-blur-md">
+    <header className="site-header fixed inset-x-0 top-0 z-50 border-b border-line bg-ink/75 backdrop-blur-md">
       <div className="container-x flex h-16 items-center justify-between md:h-20">
         <Link
           to="/"

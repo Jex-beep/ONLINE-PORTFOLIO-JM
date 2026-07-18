@@ -76,6 +76,44 @@
       transition-duration: 0.01ms !important;
     }
   }
+
+  /* Print: swap the dark tokens for ink-on-white and drop the chrome */
+  @media print {
+    :root {
+      --color-ink: #ffffff;
+      --color-ink-2: #ffffff;
+      --color-ink-3: #f4f2ee;
+      --color-ivory: #191613;
+      --color-fog: #453f38;
+      --color-gold: #8a6a33;
+      --color-gold-bright: #8a6a33;
+      --color-line: rgb(0 0 0 / 0.18);
+    }
+    .site-header,
+    .site-footer,
+    .skip-link,
+    .no-print,
+    body::after {
+      display: none !important;
+    }
+    main {
+      padding-top: 0 !important;
+    }
+    .resume-header {
+      padding-top: 0 !important;
+    }
+    main * {
+      opacity: 1 !important;
+      transform: none !important;
+    }
+    a {
+      text-decoration: none !important;
+    }
+  }
+}
+
+@page {
+  margin: 14mm;
 }
 
 @utility container-x {

@@ -13,7 +13,7 @@ const SOCIAL_ICONS: Record<string, ComponentType<{ className?: string }>> = {
 
 export function Footer() {
   return (
-    <footer className="border-t border-line">
+    <footer className="site-footer border-t border-line">
       {/* Contact CTA band */}
       <div className="container-x py-20 md:py-28">
         <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-gold">
