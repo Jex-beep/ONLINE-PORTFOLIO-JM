@@ -3,6 +3,7 @@ import { Navbar } from './components/layout/Navbar'
 import { Footer } from './components/layout/Footer'
 import { ScrollToTop } from './components/layout/ScrollToTop'
 import { HomePage } from './pages/HomePage'
+import { AboutPage } from './pages/AboutPage'
 import { PlaceholderPage } from './pages/PlaceholderPage'
 
 function App() {
@@ -16,16 +17,7 @@ function App() {
       <main id="main">
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route
-            path="/about"
-            element={
-              <PlaceholderPage
-                index="02"
-                title="About"
-                description="My story, journey and certifications are being written. Check back soon."
-              />
-            }
-          />
+          <Route path="/about" element={<AboutPage />} />
           <Route
             path="/projects"
             element={
