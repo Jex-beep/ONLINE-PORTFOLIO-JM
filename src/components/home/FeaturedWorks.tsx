@@ -30,7 +30,7 @@ export function FeaturedWorks() {
               spotlightColor={GOLD_SPOTLIGHT}
             >
               <Link
-                to="/projects"
+                to={`/projects/${project.slug}`}
                 className="grid md:grid-cols-2"
                 aria-label={`${project.name} — view case study`}
               >
