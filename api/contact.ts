@@ -1,5 +1,5 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node'
-import { contactSchema } from '../src/lib/contact-schema'
+import { contactSchema } from '../src/lib/contact-schema.js'
 
 const RESEND_ENDPOINT = 'https://api.resend.com/emails'
 const TO_EMAIL = 'jmppunsalan@gmail.com'
