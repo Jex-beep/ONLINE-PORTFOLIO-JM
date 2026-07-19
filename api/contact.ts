@@ -52,6 +52,76 @@ function isCrossOrigin(req: VercelRequest): boolean {
   }
 }
 
+function escapeHtml(value: string): string {
+  return value
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#39;')
+}
+
+const MONO = "font-family:Consolas,Menlo,'Courier New',monospace;"
+const SERIF = "font-family:Georgia,'Times New Roman',serif;"
+const SANS = 'font-family:Arial,Helvetica,sans-serif;'
+
+/** Dark-luxury branded notification email. All user values must be escaped. */
+function buildContactEmailHtml(input: {
+  name: string
+  email: string
+  subject: string
+  message: string
+}): string {
+  const name = escapeHtml(input.name)
+  const email = escapeHtml(input.email)
+  const subject = escapeHtml(input.subject)
+  const message = escapeHtml(input.message).replaceAll('\n', '<br />')
+
+  const label = `margin:0 0 5px;${MONO}font-size:10px;letter-spacing:2px;color:#c6a15b;text-transform:uppercase;`
+  const value = `margin:0 0 22px;${SANS}font-size:15px;line-height:1.6;color:#f2eee6;`
+
+  return `<!DOCTYPE html>
+<html lang="en">
+<body style="margin:0;padding:0;background-color:#0b0a08;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#0b0a08;">
+    <tr>
+      <td align="center" style="padding:36px 16px;">
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;">
+          <tr>
+            <td style="padding:0 6px 14px;">
+              <span style="${MONO}font-size:11px;letter-spacing:3px;color:#c6a15b;text-transform:uppercase;">&#9670;&nbsp; Portfolio Contact</span>
+            </td>
+          </tr>
+          <tr>
+            <td style="background-color:#141210;border:1px solid #2b2723;border-radius:12px;padding:34px;">
+              <h1 style="margin:0 0 26px;${SERIF}font-size:26px;font-weight:600;color:#f2eee6;">New message<span style="color:#c6a15b;">.</span></h1>
+              <p style="${label}">From</p>
+              <p style="${value}">${name} &nbsp;&middot;&nbsp; <a href="mailto:${email}" style="color:#c6a15b;text-decoration:none;">${email}</a></p>
+              <p style="${label}">Subject</p>
+              <p style="${value}">${subject}</p>
+              <p style="${label}">Message</p>
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td style="border-left:2px solid #c6a15b;padding:2px 0 2px 16px;">
+                    <p style="margin:0;${SANS}font-size:15px;line-height:1.7;color:#f2eee6;">${message}</p>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:16px 6px 0;">
+              <span style="${MONO}font-size:11px;color:#a39c92;">Reply to this email to answer ${name} directly. &nbsp;&#9670;&nbsp; julienpunsalan portfolio</span>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>`
+}
+
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== 'POST') {
     res.setHeader('Allow', 'POST')
@@ -112,6 +182,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         reply_to: email,
         subject: `[Portfolio] ${safeSubject}`,
         text: `New message from the portfolio contact form\n\nName: ${name}\nEmail: ${email}\n\n${message}`,
+        html: buildContactEmailHtml({ name, email, subject: safeSubject, message }),
       }),
     })
 
