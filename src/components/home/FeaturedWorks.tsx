@@ -35,20 +35,24 @@ export function FeaturedWorks() {
                 aria-label={`${project.name} — view case study`}
               >
                 <div
-                  className={`relative overflow-hidden ${index % 2 === 1 ? 'md:order-2' : ''}`}
+                  className={`relative overflow-hidden bg-gradient-to-b from-ink-3 to-ink-2 ${
+                    index % 2 === 1 ? 'md:order-2' : ''
+                  }`}
                 >
-                  <div className="aspect-[16/10] w-full">
+                  <div className="flex aspect-[16/10] w-full items-center justify-center">
+                    <div
+                      aria-hidden="true"
+                      className="absolute h-2/3 w-2/3 rounded-full bg-gold/[0.06] blur-2xl"
+                    />
                     <img
-                      src={project.images[0]}
-                      alt={`${project.name} interface screenshot`}
+                      src={project.logo}
+                      alt=""
                       loading="lazy"
-                      className="h-full w-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                      width={2000}
+                      height={2000}
+                      className="relative h-1/2 w-auto object-contain transition-transform duration-700 ease-out group-hover:scale-105"
                     />
                   </div>
-                  <div
-                    aria-hidden="true"
-                    className="absolute inset-0 bg-gradient-to-t from-ink-2/60 to-transparent md:bg-gradient-to-r"
-                  />
                 </div>
 
                 <div className="flex flex-col justify-center gap-4 p-8 md:p-12">
